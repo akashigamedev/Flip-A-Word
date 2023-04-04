@@ -1,0 +1,48 @@
+.primary_btn {
+    width: 192px;
+    height: 48px;
+    justify-content: center;
+    align-self: center;
+    background-color: rgb(41, 39, 39);
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    -unity-font-style: normal;
+}
+
+.primary_btn:hover {
+    width: 192px;
+    height: 48px;
+    justify-content: center;
+    align-self: center;
+    background-color: rgb(245, 245, 245);
+    color: rgb(36, 34, 34);
+    font-size: 18px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    -unity-font-style: normal;
+}
+
+.primary_btn:active {
+    width: 185px;
+    height: 46px;
+    justify-content: center;
+    align-self: center;
+    background-color: rgb(241, 233, 233);
+    color: rgb(41, 36, 36);
+    font-size: 18px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    -unity-font-style: normal;
+}

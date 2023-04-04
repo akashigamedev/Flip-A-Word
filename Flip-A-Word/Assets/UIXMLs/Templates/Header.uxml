@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="Header" style="flex-grow: 0; background-color: rgb(255, 255, 255); height: 50px; width: 100%; flex-shrink: 0; border-bottom-color: rgb(111, 111, 111); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 3px;">
+        <ui:Label tabindex="-1" text="Flip-A-Word" display-tooltip-when-elided="true" name="Header-Title" style="height: 43px; width: auto; align-self: auto; -unity-text-align: middle-right; font-size: 16px; -unity-font-style: normal; -unity-font: url(&apos;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&amp;guid=861387a4c9bfb88478d29978fe1d32ef&amp;type=3#NotInter-Regular&apos;); color: rgb(29, 27, 27); -unity-text-outline-width: 0; -unity-text-outline-color: rgba(255, 0, 0, 0); letter-spacing: 8px; justify-content: center;" />
+    </ui:VisualElement>
+</ui:UXML>

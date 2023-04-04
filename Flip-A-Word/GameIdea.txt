@@ -1,0 +1,17 @@
+card flip game
+uses word api
+every card has description, word count, award count in
+the front and the complete word, it's example in a sentence
+ and the recieved award stars in the back.
+
+player will choose from four option where only one is 
+correct, once the choice is made the card will flip
+to reveal the correct answer.
+
+based on how long it took them to answer they will 
+recieve stars, under 15 seconds - three stars, 30 seconds
+, - 2 stars, 1 minute - 1 star.
+
+the game is endless and gets progressively hard.
+the game requires an internet connection to play.
+we will show ads on this game.

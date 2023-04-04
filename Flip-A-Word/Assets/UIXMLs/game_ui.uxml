@@ -1,0 +1,25 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Header" src="project://database/Assets/UIXMLs/Templates/Header.uxml?fileID=9197481963319205126&amp;guid=245177b68e97eea44830f1cf49ae10a1&amp;type=3#Header" />
+    <Style src="project://database/Assets/UIXMLs/USS/option_btn.uss?fileID=7433441132597879392&amp;guid=0c3652e5b2921504d80542af820d9e03&amp;type=3#option_btn" />
+    <ui:VisualElement name="root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+        <ui:Instance template="Header" name="Header" />
+        <ui:VisualElement name="Main" style="flex-grow: 1; background-color: rgb(255, 255, 255); width: 100%;">
+            <ui:Label tabindex="-1" text="Score: 50" display-tooltip-when-elided="true" name="ScoreText" style="align-self: center; font-size: 24px; -unity-font-style: normal; -unity-font: url(&apos;project://database/Assets/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&amp;guid=e3265ab4bf004d28a9537516768c1c75&amp;type=3#LiberationSans&apos;); letter-spacing: 10px;" />
+            <ui:VisualElement name="Card" style="flex-grow: 0; background-color: rgba(142, 142, 142, 0.65); width: 200px; height: 274px; justify-content: flex-start; align-self: center; align-items: center; flex-shrink: 0; margin-top: 30px;">
+                <ui:Label tabindex="-1" text="Word" display-tooltip-when-elided="true" name="Word" style="font-size: 18px; -unity-font-style: bold; -unity-text-align: middle-center; letter-spacing: 10px; margin-top: 20px; max-width: 100%; justify-content: space-around; align-items: stretch; align-self: center; width: 100%; text-overflow: clip; white-space: normal;" />
+                <ui:Label tabindex="-1" text="Definition" display-tooltip-when-elided="true" name="Definition" style="font-size: 16px; -unity-font-style: bold; -unity-text-align: middle-center; letter-spacing: 0; margin-top: 4px; width: 100%; max-width: 100%; justify-content: space-around; align-self: center; white-space: normal;" />
+                <ui:Label tabindex="-1" text="Example" display-tooltip-when-elided="true" name="Example" style="font-size: 16px; -unity-font-style: bold; -unity-text-align: middle-center; letter-spacing: 0; margin-top: 4px; justify-content: space-around; align-self: center; width: 100%; max-width: 100%; white-space: normal;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="btn_holder" style="flex-grow: 1; background-color: rgba(241, 241, 241, 0); margin-top: 0; margin-left: 15px; margin-right: 0; margin-bottom: 0; width: 200px; align-self: center; justify-content: space-between; align-items: stretch; flex-direction: row; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; left: 0;">
+                <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: auto; justify-content: center; height: 80%; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; align-items: flex-start; align-self: center; margin-top: 0;">
+                    <ui:Button text="Option 1" display-tooltip-when-elided="true" name="Option1" class="option_btn" style="font-size: 10px; width: 80px; height: 80px;" />
+                    <ui:Button text="Option 3" display-tooltip-when-elided="true" name="Option3" class="option_btn" style="align-self: auto; justify-content: space-around; font-size: 10px; width: 80px; height: 80px; margin-top: 8px;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: auto; justify-content: center; height: 80%; padding-right: 0; padding-left: 0; padding-top: 0; padding-bottom: 0; align-self: center; align-items: flex-start;">
+                    <ui:Button text="Option 2" display-tooltip-when-elided="true" name="Option2" class="option_btn" style="align-self: auto; justify-content: space-around; font-size: 10px; width: 80px; height: 80px;" />
+                    <ui:Button text="Option 4" display-tooltip-when-elided="true" name="Option4" class="option_btn" style="align-self: auto; justify-content: space-around; font-size: 10px; width: 80px; height: 80px; margin-top: 8px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
