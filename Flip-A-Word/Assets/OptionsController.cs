@@ -8,33 +8,50 @@ using UnityEngine.UIElements;
 
 public class OptionsController : MonoBehaviour
 {
-    [SerializeField] LoadWordFromList loadWordFromList;
+    public event EventHandler<OnAnswerSelectedEventArgs> OnAnswerSelected;
+    public class OnAnswerSelectedEventArgs : EventArgs
+    {
+        public string word;
+    }
+
     [SerializeField] UIDocument uiDocument; 
+
     Button Option1Btn, Option2Btn, Option3Btn, Option4Btn;
-    // Start is called before the first frame update
+    List<Word> originalWordList = new List<Word>(WordsList.wordList);
+
     void Start()
     {
-        loadWordFromList.OnWordRecieved += LoadWordFromList_OnWordRecieved;
+        GameManager.Instance.OnLevelLoaded += GameManager_OnLevelLoaded;
 
         var root = uiDocument.rootVisualElement;
         Option1Btn = root.Q<Button>("Option1");
         Option2Btn = root.Q<Button>("Option2");
         Option3Btn = root.Q<Button>("Option3");
         Option4Btn = root.Q<Button>("Option4");
+
+
+        Option1Btn.clicked += () => HandleAnswerSelected(Option1Btn);
+        Option2Btn.clicked += () => HandleAnswerSelected(Option2Btn);
+        Option3Btn.clicked += () => HandleAnswerSelected(Option3Btn);
+        Option4Btn.clicked += () => HandleAnswerSelected(Option4Btn);
     }
 
-    void LoadWordFromList_OnWordRecieved(object sender, LoadWordFromList.OnWordsRecievedEventArgs e)
+    void HandleAnswerSelected(Button btn)
+    {
+        OnAnswerSelected?.Invoke(this, new OnAnswerSelectedEventArgs { word = btn.text });
+    }
+
+    void GameManager_OnLevelLoaded(object sender, GameManager.OnLevelLoadedEventArgs e)
     {
         // create a list to store chosen words with the correct word already in it
         List<Word> chosenWords = new List<Word>() {e.word};
 
-
         // randomly select three more options from wordlist
         while (chosenWords.Count < 4)
         {
-            int randomInt = UnityEngine.Random.Range(0, WordsList.wordList.Count);
-            if (!chosenWords.Contains(WordsList.wordList[randomInt]))
-                chosenWords.Add(WordsList.wordList[randomInt]);
+            int randomInt = UnityEngine.Random.Range(0, originalWordList.Count);
+            if (!chosenWords.Contains(originalWordList[randomInt]))
+                chosenWords.Add(originalWordList[randomInt]);
             else
                 continue;
         }
@@ -44,7 +61,7 @@ public class OptionsController : MonoBehaviour
         System.Random rng = new System.Random();
         int n = chosenWords.Count;
 
-        while(n > 1)
+        while (n > 1)
         {
             n--;
             int k = rng.Next(n + 1);

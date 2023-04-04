@@ -6,21 +6,23 @@ using UnityEngine.UIElements;
 
 public class CardController : MonoBehaviour
 {
-    [SerializeField] LoadWordFromList loadWordsFromList;
     [SerializeField] UIDocument uiDocument;
 
-    private void Start()
+    Label word, definition, example;
+
+    void Start()
     {
-        loadWordsFromList.OnWordRecieved += LoadWordsFromList_OnWordRecieved;
+        GameManager.Instance.OnLevelLoaded += GameManager_OnLevelLoaded;
+
+        var root = uiDocument.rootVisualElement;
+        word = root.Q<Label>("Word");
+        definition = root.Q<Label>("Definition");
+        example = root.Q<Label>("Example");
     }
 
-    void LoadWordsFromList_OnWordRecieved(object sender, LoadWordFromList.OnWordsRecievedEventArgs e)
+    void GameManager_OnLevelLoaded(object sender, GameManager.OnLevelLoadedEventArgs e)
     {
-        var root = uiDocument.rootVisualElement;
-        var word = root.Q<Label>("Word");
-        var definition = root.Q<Label>("Definition");
-        var example = root.Q<Label>("Example");
-
+        // Loading Card
         word.text = e.word.word;
         definition.text = e.word.definition;
         example.text = e.word.example;

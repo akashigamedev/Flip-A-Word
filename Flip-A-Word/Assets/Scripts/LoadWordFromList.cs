@@ -1,21 +1,18 @@
 using System;
 using UnityEngine;
 
-public class LoadWordFromList : MonoBehaviour
+public static class LoadWordFromList
 {
-    public event EventHandler<OnWordsRecievedEventArgs> OnWordRecieved;
-    public class OnWordsRecievedEventArgs : EventArgs
+    public static void LoadWord(ref Word word)
     {
-        public Word word;
-    }
-    void Start()
-    {
-        int randomInt = UnityEngine.Random.Range(0, WordsList.wordList.Count);
-        Word _word = WordsList.wordList[randomInt];
-
-        OnWordRecieved?.Invoke(this, new OnWordsRecievedEventArgs
+        if (WordsList.wordList.Count <= 0)
         {
-            word = _word
-        });
+            Debug.LogError("WordsList is empty! Player Won!!");
+            return;
+        }
+         
+        int randomInt = UnityEngine.Random.Range(0, WordsList.wordList.Count);
+        word =  WordsList.wordList[randomInt];
+        WordsList.wordList.RemoveAt(randomInt);
     }
 }
