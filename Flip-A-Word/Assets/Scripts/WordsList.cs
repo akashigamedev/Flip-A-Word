@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class WordsList {
-    public static List<Word> wordList = new List<Word>() {
+
+    public static List<Word> wordList;
+
+
+
+    public static List<Word> offlineWordList = new List<Word>() {
           new Word("Abstinence", "the act of refraining from indulging in a particular pleasure or vice.", "His abstinence from alcohol helped him maintain a healthy lifestyle.")
         , new Word("Ambidextrous", "able to use both hands equally well.", "The ambidextrous tennis player could serve with either hand.")
         , new Word("Amiable", "friendly and pleasant.", "She was known for her amiable personality and easy-going nature.")
