@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class WordsList {
 
-    public static List<Word> wordList;
+    public static List<Word> onlineWordList;
 
 
 

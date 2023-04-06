@@ -7,25 +7,24 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public static class LoadWordFromAPI
+public static class APILoadWordList
 {
     static readonly object lockObj = new object();
 
-    public static async void RequestRandomWord(int wordCount, int letterCount, Action action)
+    public static async Task RequestRandomWord(int wordCount, int letterCount)
     {
         string request = $"https://random-word-api.herokuapp.com/word?number={wordCount}&length={letterCount}";
 
 
         HttpClient client = new HttpClient();
-
         HttpResponseMessage response = await client.GetAsync(request);
 
         string responseContent = await response.Content.ReadAsStringAsync();
         string[] words = JsonConvert.DeserializeObject<string[]>(responseContent);
-
         client.Dispose();
 
-        ConcurrentBag<Word> wordList = new ConcurrentBag<Word>();
+        List<Word> wordList = new List<Word>();
+        object wordListLock = new object();
 
         var tasks = new List<Task>();
         foreach(var word in words)
@@ -35,7 +34,10 @@ public static class LoadWordFromAPI
                 Word wordObj = await RequestWordDefinition(word);
                 if(wordObj != null)
                 {
-                    wordList.Add(wordObj);
+                    lock(wordListLock)
+                    {
+                        wordList.Add(wordObj);   
+                    }
                 }
 
             }));
@@ -45,9 +47,10 @@ public static class LoadWordFromAPI
         await Task.WhenAll(tasks);
 
         // Assign New WordList For Game To Use
-        WordsList.wordList = new List<Word>(wordList);
-
-        action();
+        lock (wordListLock)
+        {
+            WordsList.onlineWordList = wordList;
+        }
     }
 
     static async Task<Word> RequestWordDefinition(string word)

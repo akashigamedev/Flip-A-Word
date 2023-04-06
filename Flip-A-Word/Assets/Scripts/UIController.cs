@@ -32,7 +32,7 @@ public class UIController : MonoBehaviour
 
     void Start()
     {
-        GameManager.Instance.OnLevelLoaded += GameManager_OnLevelLoaded;
+        GameManager.Instance.OnNextWordLoaded += GameManager_OnNextWordLoaded;
         GameManager.Instance.OnScoreUpdated += GameManager_OnScoreUpdated;
 
         optionBtn1.onClick.AddListener(() => HandleAnswerSelected(option1Text));
@@ -57,8 +57,9 @@ public class UIController : MonoBehaviour
         scoreText.text = "Score: " + e.updatedScore;
     }
 
-    void GameManager_OnLevelLoaded(object sender, GameManager.OnLevelLoadedEventArgs e)
+    void GameManager_OnNextWordLoaded(object sender, GameManager.OnNextWordLoadedEventArgs e)
     {
+        print("In OnWordLoaded");
         loadingScreen.SetActive(false);
         // set card
         wordText.text = e.word.word;
@@ -87,14 +88,7 @@ public class UIController : MonoBehaviour
         List<Word> chosenWords = new List<Word>() { word };
 
         // randomly select three more options from wordlist
-        while (chosenWords.Count < 4)
-        {
-            int randomInt = UnityEngine.Random.Range(0, WordsList.wordList.Count);
-            if (!chosenWords.Contains(WordsList.wordList[randomInt]))
-                chosenWords.Add(WordsList.wordList[randomInt]);
-            else
-                continue;
-        }
+        LoadOptionsFromList.LoadOptions(ref chosenWords, GameManager.Instance.isOnline);
 
         #region ShuffleCode
         //Shuffle ChosenList to avoid spawning the correct choice at the same button every time

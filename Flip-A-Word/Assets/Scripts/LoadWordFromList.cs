@@ -3,16 +3,25 @@ using UnityEngine;
 
 public static class LoadWordFromList
 {
-    public static void LoadWord(ref Word word)
+    public static Word LoadWord(int currentIndex, bool isOnline)
     {
-        if (WordsList.offlineWordList.Count <= 0)
+        switch(isOnline)
         {
-            Debug.LogError("WordsList is empty! Player Won!!");
-            return;
+            case true:
+                    if (currentIndex == WordsList.onlineWordList.Count - 1)
+                        return null;
+
+                    int randomInt = UnityEngine.Random.Range(0, WordsList.onlineWordList.Count);
+                    Word word = WordsList.onlineWordList[randomInt];
+                    return word;
+            default:
+            case false:
+                if (currentIndex == WordsList.offlineWordList.Count - 1)
+                    return null;
+
+                int rInt = UnityEngine.Random.Range(0, WordsList.offlineWordList.Count);
+                Word newWord = WordsList.offlineWordList[rInt];
+                return newWord;
         }
-         
-        int randomInt = UnityEngine.Random.Range(0, WordsList.offlineWordList.Count);
-        word =  WordsList.offlineWordList[randomInt];
-        WordsList.offlineWordList.RemoveAt(randomInt);
     }
 }

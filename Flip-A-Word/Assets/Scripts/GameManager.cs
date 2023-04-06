@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour 
 {
 
-    public event EventHandler<OnLevelLoadedEventArgs> OnLevelLoaded;
-    public class OnLevelLoadedEventArgs : EventArgs
+    public event EventHandler<OnNextWordLoadedEventArgs> OnNextWordLoaded;
+    public class OnNextWordLoadedEventArgs : EventArgs
     {
         public Word word;
     }
@@ -27,8 +28,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] int AwardPoints = 100;
     [SerializeField] int DeductPoints = 50;
 
+    [Header("Controls")]
+    public bool isOnline = false;
+    [Header("Online Controls")]
+    [SerializeField] int letterCount = 6;
+    [SerializeField] int wordsCount = 10;
+
     int score;
-    int currentWordIndex = 0;
+    int currentIndex;
     public int Score
     {
         get { return score; }
@@ -38,64 +45,51 @@ public class GameManager : MonoBehaviour
 
 
 
-    private void Awake()
+    void Awake()
     {
         Instance = this;
-        RequestWordFromAPI(LoadWord);
     }
 
-    void Start()
+    async void Start()
     {  
         uiController.OnAnswerSelected += UIController_OnAnswerSelected;
+        Debug.Log("Online Check Ahead");
+        if (isOnline)
+            await APILoadWordList.RequestRandomWord(wordsCount, letterCount);
+
+        LoadWord();
+        Debug.Log("Got passed is online check");
+
     }
 
     void UIController_OnAnswerSelected(object sender, UIController.OnAnswerSelectedEventArgs e)
     {
         if(e.word == currentWord.word)
         {
-            // Player chose correct option
             print("Player Chose Correct Option");
-            LoadWord();
             Score+= AwardPoints;
         }
         else
         {
-            // Player chose incorrect option
             print("Player Chose Incorrect Option");
-            LoadWord();
             Score -= DeductPoints;
         }
+
+        LoadWord();
 
         //Notify UI Controller to update UI
         OnScoreUpdated?.Invoke(this, new OnScoreUpdatedEventArgs { updatedScore = Score });
     }
 
+
+
     void LoadWord()
     {
-        Debug.Log(currentWordIndex);
-        if (currentWordIndex == WordsList.wordList.Count - 1)
-        {
-            // if last word is being played
-            currentWord = WordsList.wordList[currentWordIndex];
-            currentWordIndex = 0;
-            RequestWordFromAPI(() => {});
-            Invoke("FireEvent", 1f);
-        }
+        Debug.Log("Now we're in loadword");
+        currentWord = LoadWordFromList.LoadWord(currentIndex, isOnline);
+        if (currentWord != null)
+            OnNextWordLoaded?.Invoke(this, new OnNextWordLoadedEventArgs { word = currentWord });
         else
-        {
-            currentWord = WordsList.wordList[currentWordIndex];
-            currentWordIndex++;
-            Invoke("FireEvent", 1f);
-        }
-    }
-
-    void FireEvent()
-    {
-        OnLevelLoaded?.Invoke(this, new OnLevelLoadedEventArgs { word = currentWord });
-    }
-
-    void RequestWordFromAPI(Action action)
-    {
-        LoadWordFromAPI.RequestRandomWord(10, 5, action);
+            Debug.Log("Game WON!!!!");
     }
 }
